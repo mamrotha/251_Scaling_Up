@@ -1,0 +1,28 @@
+# FROM summit.hovitos.engineering/arm64/jetsontx2:cudnn
+# FROM nvidia/cuda:8.0-cudnn5-devel
+FROM ubuntu
+
+MAINTAINER bmwshop@gmail.com
+
+# this installs darknet: http://pjreddie.com/darknet/install/
+# and then configures the tiny model for yolo
+
+RUN apt-get update && apt-get install -y git pkg-config wget unzip
+
+RUN apt-get install -y libopencv-dev
+WORKDIR /
+
+RUN git clone https://github.com/pjreddie/darknet.git
+WORKDIR /darknet
+
+# COPY Makefile /darknet/Makefile
+
+
+ENV PATH /usr/local/cuda/bin:$PATH
+RUN make -j4
+
+# RUN wget http://pjreddie.com/media/files/tiny-yolo.weights
+# RUN wget http://pjreddie.com/media/files/tiny-yolo-voc.weights
+# RUN wget http://pjreddie.com/media/files/yolo.weights
+
+RUN wget https://pjreddie.com/media/files/yolo.weights
