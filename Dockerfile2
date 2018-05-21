@@ -1,0 +1,35 @@
+FROM ubuntu:16.04
+  
+RUN apt-get update
+
+RUN apt-get install -y wget python-setuptools python-dev build-essential
+
+RUN easy_install pip
+
+RUN wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
+
+RUN echo 'deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main' > /etc/apt/sources.list.d/saltstack.list
+
+RUN apt-get update
+
+RUN apt-get install -y salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api
+
+RUN mkdir -p /etc/salt/{cloud.providers.d,cloud.profiles.d}
+
+RUN pip install SoftLayer
+
+RUN echo '[softlayer]' > ~/.softlayer
+
+RUN echo 'username = SL1655535' >> ~/.softlayer
+
+RUN echo 'api_key = 96a97f03850db360f57e21ed7b05dfd3080050cf7f9c8d832627b90e66a3a346' >> ~/.softlayer
+
+RUN echo 'endpoint_url = https://api.softlayer.com/xmlrpc/v3.1/' >> ~/.softlayer
+
+RUN service salt-master start
+
+RUN service salt-syndic start
+
+RUN service salt-api start
+
+ENTRYPOINT ["/bin/bash"]
