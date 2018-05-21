@@ -1,1 +1,5 @@
 slcli vs create --datacenter=dal09 --domain=softlayer.com --hostname=test --os=CENTOS_7_64 --cpu=1 --memory=1024 --billing=hourly
+slcli vs list
+slcli vs credentials <id>
+ssh root@<primary IP>
+slcli vs cancel <id>
