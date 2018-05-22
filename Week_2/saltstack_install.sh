@@ -20,8 +20,8 @@ cat <<EOT >> /etc/salt/cloud.providers.d/softlayer.conf
 sl:
   minion:
     master: YOUR_VM_PUBLIC_IP
-  user: YOUR_SL_API_ID
-  apikey: YOUR_SL_API_KEY
+  user: SL1655535
+  apikey: 96a97f03850db360f57e21ed7b05dfd3080050cf7f9c8d832627b90e66a3a346
   driver: softlayer
 EOT
 
