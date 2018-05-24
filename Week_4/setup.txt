@@ -1,0 +1,1 @@
+cat export PATH=$PATH:/usr/lpp/mmfs/bin >> /root/.bash_profile
