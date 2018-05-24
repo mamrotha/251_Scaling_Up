@@ -1,3 +1,5 @@
 echo 'export PATH=$PATH:/usr/lpp/mmfs/bin' >> /root/.bash_profile
 
-ssh-copy-id root@remote_host
+ssh-copy-id -i /root/.ssh/id_rsa root@host
+
+
