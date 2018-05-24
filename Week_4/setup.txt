@@ -2,4 +2,10 @@ echo 'export PATH=$PATH:/usr/lpp/mmfs/bin' >> /root/.bash_profile
 
 ssh-copy-id -i /root/.ssh/id_rsa root@host
 
+cat <<EOT >> /root/nodefile
+gpfs1:quorum:
+gpfs2::
+gpfs3::
+EOT
+
 
