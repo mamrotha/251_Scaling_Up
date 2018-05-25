@@ -1,9 +1,0 @@
-echo 'export PATH=$PATH:/usr/lpp/mmfs/bin' >> /root/.bash_profile
-
-cat <<EOT >> /root/nodefile
-gpfs1:quorum:
-gpfs2::
-gpfs3::
-EOT
-
-
