@@ -5,6 +5,4 @@ slcli vs create --datacenter=sjc01 --domain=anywhere.com --hostname=gpfs1 --os=R
 
 slcli vs create --datacenter=sjc01 --domain=anywhere.com --hostname=gpfs2 --os=REDHAT_6_64 --cpu=2 --memory=4096 --disk=25 --disk=25 --billing=hourly --key Rupert
 
-slcli vs create --datacenter=sjc01 --domain=anywhere.com --hostname=gpfs2 --os=REDHAT_6_64 --cpu=2 --memory=4096 --disk=25 --disk=25 --billing=hourly --key Rupert
-
-ssh-copy-id -i /root/.ssh/id_rsa root@host
+slcli vs create --datacenter=sjc01 --domain=anywhere.com --hostname=gpfs3 --os=REDHAT_6_64 --cpu=2 --memory=4096 --disk=25 --disk=25 --billing=hourly --key Rupert
