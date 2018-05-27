@@ -1,3 +1,4 @@
+cd /gpfs/gpfsfpo
 for i in {0..99}
 do
   wget http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-all-2gram-20090715-$i.csv.zip
