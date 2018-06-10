@@ -1,3 +1,7 @@
+scp setup_hosts.sh root@50.97.248.172
+scp setup_hosts.sh root@50.97.248.170
+scp setup_hosts.sh root@169.53.129.180
+
 rm -f /etc/hosts
 
 cat <<EOT >> /etc/hosts
