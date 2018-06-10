@@ -1,3 +1,63 @@
-curl http://archive.apache.org/dist/hadoop/common/hadoop-2.7.4/hadoop-2.7.4-src.tar.gz | tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,hadoop,'
+curl http://apache.claz.org/hadoop/core/hadoop-2.7.6/hadoop-2.7.6.tar.gz | tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,hadoop,'
 
-w92=?W6QQvbmyG]R
+curl http://apache.claz.org/hadoop/core/hadoop-2.7.6/hadoop-2.7.6.tar.gz%7C tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,hadoop,'
+
+cat <<\EOT >> ./core-site.xml
+<?xml version="1.0"?>
+  <configuration>
+    <property>
+      <name>fs.defaultFS</name>
+      <value>hdfs://master/</value>
+    </property>
+  </configuration>
+EOT
+
+cat <<\EOT >> ./yarn-site.xml
+<?xml version="1.0"?>
+  <configuration>
+    <property>
+      <name>yarn.resourcemanager.hostname</name>
+      <value>master</value>
+    </property>
+    <property>
+      <name>yarn.nodemanager.aux-services</name>
+      <value>mapreduce_shuffle</value>
+    </property>
+  </configuration>
+EOT
+
+cat <<\EOT >> ./mapred-site.xml
+<?xml version="1.0"?>
+  <configuration>
+    <property>
+      <name>mapreduce.framework.name</name>
+      <value>yarn</value>
+    </property>
+  </configuration>
+EOT
+
+cat <<\EOT >> ./hdfs-site.xml
+<?xml version="1.0"?>
+  <configuration>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///data/datanode</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///data/namenode</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.checkpoint.dir</name>
+        <value>file:///data/namesecondary</value>
+    </property>
+  </configuration>
+EOT
+
+cat <<\EOT >> ./slaves
+master
+slave1
+slave2
+EOT
