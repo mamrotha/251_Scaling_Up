@@ -1,6 +1,6 @@
-scp setup_hosts.sh root@50.97.248.172
-scp setup_hosts.sh root@50.97.248.170
-scp setup_hosts.sh root@169.53.129.180
+scp setup_hosts.sh root@50.97.248.172:/root/setup_hosts.sh
+scp setup_hosts.sh root@50.97.248.170:/root/setup_hosts.sh
+scp setup_hosts.sh root@169.53.129.180:/root/setup_hosts.sh
 
 rm -f /etc/hosts
 
