@@ -76,7 +76,5 @@ cat <<\EOF >> hdfs-site.xml
     <name>dfs.namenode.checkpoint.dir</name>
     <value>file:///data/namesecondary</value>
   </property>
-  </configuration>
-  EOF
-
-
+</configuration>
+EOF
