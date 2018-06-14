@@ -26,7 +26,7 @@ cat <<\EOF >> core-site.xml
     <value>hdfs://master/</value>
   </property>
 </configuration>
-EOT
+EOF
 
 
 rm -f yarn-site.xml
@@ -43,6 +43,6 @@ cat <<\EOF >> yarn-site.xml
     <value>mapreduce_shuffle</value>
   </property>
 </configuration>
-EOT
+EOF
 
 
