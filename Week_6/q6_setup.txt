@@ -3,9 +3,9 @@ moby = spark.read.text("/root/coursework/week6/hw/apache_spark_introduction/moby
 cut = "MOBY DICK; OR THE WHALE"
 
 def cut_point(words, test):
-  while flag:
-    if test not in words:
-      flag = False
+  flag = True
+  if test not in words:
+    flag = False
   return not flag
   
 lines_after = moby.filter(cut_point(
