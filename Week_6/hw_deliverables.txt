@@ -2,7 +2,7 @@ Question 1:  Pi is roughly 3.135575677878389
 
 Question 2:  23244
 
-Question 3: u'**The Project Gutenberg Etext of Moby Dick, by Herman Melville**'
+Question 3: **The Project Gutenberg Etext of Moby Dick, by Herman Melville**
 
 Question 4:
 
