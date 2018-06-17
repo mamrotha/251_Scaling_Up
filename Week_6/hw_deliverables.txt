@@ -6,7 +6,7 @@ Question 3: **The Project Gutenberg Etext of Moby Dick, by Herman Melville**
 
 Question 4: 1276
 
-Question 5:
+Question 5: 2 files are created [part-00000  part-00001]
 
 Question 6:
 
