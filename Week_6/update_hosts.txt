@@ -1,3 +1,3 @@
-50.22.13.216 master.hadoop.mids.lulz.bz master
-50.22.13.194 slave1.hadoop.mids.lulz.bz slave1
-50.22.13.217 slave2.hadoop.mids.lulz.bz slave2
+198.11.209.163 spark1@mids.com spark1
+198.11.209.162 spark2@mids.com spark2
+198.11.209.164 spark3@mids.com spark3
