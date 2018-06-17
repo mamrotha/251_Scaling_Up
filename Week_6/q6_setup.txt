@@ -2,11 +2,16 @@ moby = spark.read.text("/root/coursework/week6/hw/apache_spark_introduction/moby
 
 cut = "MOBY DICK; OR THE WHALE"
 
+flag = True
+
 def cut_point(words, test):
-  flag = True
-  if test not in words:
-    flag = False
+  global flag
+  while flag:
+    if test in words:
+      flag = False
+    else: break
   return not flag
   
-lines_after = moby.filter(cut_point(
+lines_after = moby.map(cut_point(moby.value, cut))
   
+lines_after.saveAsTextFiles("/root/homework6.txt")
