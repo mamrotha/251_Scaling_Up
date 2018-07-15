@@ -25,10 +25,10 @@ object Twitter_Popularity extends App {
     val samplingNumber = thirdarg.toInt
 
     //add your creds below
-    System.setProperty("twitter4j.oauth.consumerKey", "IgReMqh0nH3kCcGb9hsDT7eDI")
-    System.setProperty("twitter4j.oauth.consumerSecret", "Tzji1dP7mZGUgokvTw00aZkdP1D3jEbzxNkhLRllCJ1UtX0iJ4")
-    System.setProperty("twitter4j.oauth.accessToken", "926103246640439296-ovV4JLwNLvgCs7yPrfgtoBc3zOyeSUx")
-    System.setProperty("twitter4j.oauth.accessTokenSecret", "1JaVhnkMzpHFVJZKnzuHt1LoEw7VV1ayXj30tXbnujXq5")
+    System.setProperty("twitter4j.oauth.consumerKey", "")
+    System.setProperty("twitter4j.oauth.consumerSecret", "")
+    System.setProperty("twitter4j.oauth.accessToken", "")
+    System.setProperty("twitter4j.oauth.accessTokenSecret", "")
 
     // create SparkConf
     val conf = new SparkConf().setAppName("mids tweeteat")
