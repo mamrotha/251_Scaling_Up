@@ -31,7 +31,7 @@ object Twitter_Popularity extends App {
     System.setProperty("twitter4j.oauth.accessTokenSecret", "")
 
     // create SparkConf
-    val conf = new SparkConf().setAppName("mids tweeteat")
+    val conf = new SparkConf().setAppName("twitter popularity")
 
     // batch interval determines how often Spark creates an RDD out of incoming data
     val ssc = new StreamingContext(conf, Seconds(samplingFrequency))
