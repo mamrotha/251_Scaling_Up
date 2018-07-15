@@ -38,12 +38,14 @@ object Twitter_Popularity extends App {
     val stream = TwitterUtils.createStream(ssc, None)
 
     // extract desired data from each status during sample period as class "TweetData", store collection of those in new RDD
-    val tweetData = stream.map(status => TweetData(status.getId, status.getUser.getScreenName, status.getText.trim))
-    tweetData.foreachRDD(rdd => {println(s"A sample of tweets I gathered over ${samplingFrequency}s: ${rdd.take(10).mkString(" ")} (total tweets fetched: ${rdd.count()})")})
+    val tweetData = stream.map(status => TweetData(status.getId, status.getUser.getScreenName, status.getText))
+    val hashTags = tweetData.foreachRDD(rdd => {println(s"A sample of tweets I gathered over ${samplingFrequency}s: ${rdd.take(10).mkString(" ")} (total tweets fetched: ${rdd.count()})")})
 
     val hashTags = stream.flatMap(status => status.getText.split(" ").filter(_.startsWith("#")))
     hashTags.foreachRDD(rdd => {println(s"Hashtags are: ${rdd.take(10).mkString(" ")}")
                                 var file = rdd.saveAsTextFile("/root/output/file1")})
+    
+    
                                 
     // start consuming stream
     ssc.start
