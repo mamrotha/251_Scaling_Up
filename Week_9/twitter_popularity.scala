@@ -2,8 +2,6 @@ import org.apache.spark.streaming.Seconds
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.twitter._
 
-import org.apache.log4j.{Level, Logger}
-
 import com.datastax.spark.connector.streaming._
 import com.datastax.spark.connector.SomeColumns
 
