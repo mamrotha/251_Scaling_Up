@@ -39,24 +39,38 @@ object Twitter_Popularity extends App {
    
     // extract desired data from each status during sample period as class "TweetData", store collection of those in new RDD
     val tweetData = stream.map(status => (status.getId, status.getUser.getScreenName, status.getText))
-    val hashTags = tweetData.flatMap({case (id, author, tweet) => (tweet.split(" ").filter(_.startsWith("#")))})
 
-    //count popular tags
-    val top_Tags = hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(samplingFrequency))
+    val hashTagCounts = tweetData.flatMap({case (id, author, tweet) => (tweet.split(" ").filter(_.startsWith("#")))  })
+                        .map((_, 1)).reduceByKey(_+_).map{case (a, b) => (b, a)}
+                        .transform(_.sortByKey(false))
+                        .map{case (a, b) => (b, a)}
+
+    val tagAuthor = tweetData.map({case (id, author, tweet) => (author, tweet.split(" ").filter(_.startsWith("#")))})
+                    .flatMap{ case (key, values) => values.map((key, _)) }
                     .map{case (topic, count) => (count, topic)}
-                    .transform(_.sortByKey(false))
+                    .map{case (tag, user) => (tag, List(user))}
+                    .reduceByKey(_ ++ _)
 
-    top_Tags.foreachRDD(rdd => {
-      val top_N_Tags = rdd.take(samplingNumber)
-      println("\nPopular topics in last n seconds (%s total):".format(rdd.count()))
-      top_N_Tags.foreach{case (count, tag) => println("%s (%s tweets)".format(tag, count))}
-    })
+    val tagMention = tweetData.map({case (id, author, tweet) => (tweet, tweet.split(" ").filter(_.startsWith("#")))})
+                    .flatMap({ case (key, values) => values.map((key, _)) })
+                    .map{case (tweet, tag) => (tag, tweet.split(" ").filter(_.startsWith("@")).toList)}
 
-    // collect for use
-    val popData = tweetData.map({case (id, author, tweet) =>
-                  (author, tweet.split(" ").filter(_.startsWith("#")), tweet.split(" ").filter(_.startsWith("@")))})
-    popData.foreachRDD(rdd => {println(s"Collected these: ${rdd.take(10).mkString(", ")}")})
-                                
+    val tagAuthor_Count = tagAuthor.join(hashTagCounts)
+                          .map{case (tag, (users, count)) => (count, (tag, users))}
+                          .transform(_.sortByKey(false))
+
+    val tagMention_Count = tagMention.join(hashTagCounts)
+                          .map{case (tag, (mentioned, count)) => (count, (tag, mentioned))}
+                          .transform(_.sortByKey(false))
+
+    //print outputs
+    tagAuthor_Count.foreachRDD(rdd => {println(s"Authors using popular tags over time period ${samplingFrequency}s: ${rdd.take(10).mkString(" ")}")})
+    tagMention_Count.foreachRDD(rdd => {println(s"Users mentioned in popular tags over time period ${samplingFrequency}s: ${rdd.take(10).mkString(" ")}")})
+
+    //collect windowed streams
+    val windowed_tagAuthor_Count = tagAuthor_Count.window(Seconds(duration))
+    val windowed_tagMention_Count = tagMention_Count.window(Seconds(duration))
+
     // start consuming stream
     ssc.start
     ssc.awaitTerminationOrTimeout(duration * 1000)
@@ -65,5 +79,3 @@ object Twitter_Popularity extends App {
     println(s"============ Exiting ================")
     System.exit(0)
 }
-
-case class TweetData(id: Long, author: String, tweet: String)
